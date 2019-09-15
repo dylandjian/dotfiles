@@ -1,0 +1,13 @@
+{
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "jsonc",
+    "json",
+    "go"
+  ],
+  "codeLens.enable": false,
+  "diagnostic.virtualText": true,
+  "tsserver.enableJavascript": true
+}
