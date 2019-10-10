@@ -9,6 +9,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 
+" Copy paste
+Plug 'roxma/vim-tmux-clipboard'
+
 " Git
 Plug 'tpope/vim-fugitive'
 
@@ -41,6 +44,9 @@ call plug#end()
 
 " Leader shortcut
 :let mapleader=","									" leader is coma
+
+" Copy paste vim to macOS clipboard
+set clipboard=unnamed
 
 " -- Coc settings --
 
@@ -110,11 +116,13 @@ xmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
 " -- Other settings --
-" let g:polyglot_disabled = ['tsx', 'css', 'jsx']
+
+" Watch file changes on filesystem
+set autoread
 
 " Coc global extensions
-let g:coc_global_extensions = ["coc-json", "coc-tsserver", "coc-yaml",
-                             \ "coc-tslint", "coc-prettier", "coc-go"]
+let g:coc_global_extensions = ["coc-json", "coc-prettier", "coc-tsserver", "coc-yaml",
+                             \ "coc-tslint", "coc-go"]
 
 " Colors
 colorscheme gruvbox
@@ -149,7 +157,10 @@ autocmd BufRead */git-rebase-todo execute ":%s/pick/squash/gc"
 " Set filetypes as typescript.tsx
 " autocmd BufNewFile,BufRead *.ts,*js,*.tsx,*.jsx set filetype=typescript
 " autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript
-:let g:jsx_ext_required = 0
+let g:jsx_ext_required = 0
+
+" Disable vim polyglot for some languages, current problems between TS and JSX
+let g:polyglot_disabled = ['css', 'tsx', 'jsx']
 
 " Setup
 command! -nargs=0 Prettier :CocCommand prettier.formatFile

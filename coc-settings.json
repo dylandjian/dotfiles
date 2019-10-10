@@ -1,8 +1,11 @@
 {
+  "coc.preferences.hoverTarget": "preview",
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "typescript",
+    "javascriptreact",
+    "typescriptreact",
     "jsonc",
     "json",
     "go"
@@ -11,3 +14,4 @@
   "diagnostic.virtualText": true,
   "tsserver.enableJavascript": true
 }
+
