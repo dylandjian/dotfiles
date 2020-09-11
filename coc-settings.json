@@ -1,5 +1,4 @@
 {
-  "coc.preferences.hoverTarget": "preview",
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
@@ -8,10 +7,22 @@
     "typescriptreact",
     "jsonc",
     "json",
-    "go"
+    "go",
+    "yaml"
   ],
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
+  "diagnostic.virtualTextCurrentLineOnly": false,
   "codeLens.enable": false,
   "diagnostic.virtualText": true,
-  "tsserver.enableJavascript": true
+  "tsserver.enableJavascript": true,
+  "coc.preferences.hoverTarget": "float",
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"],
+      "initializationOptions": {}
+    }
+  }
 }
-

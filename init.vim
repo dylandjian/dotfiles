@@ -9,6 +9,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 
+" Motion
+Plug 'justinmk/vim-sneak'
+
 " Copy paste
 Plug 'roxma/vim-tmux-clipboard'
 
@@ -16,10 +19,9 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tpope/vim-fugitive'
 
 " Files
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
 
 " Colors
 Plug 'flazz/vim-colorschemes'
@@ -40,6 +42,9 @@ Plug 'tpope/vim-surround'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Coc installs its own plugins using yarn
 
+" Git
+Plug 'mhinz/vim-signify'
+
 call plug#end()
 
 " Leader shortcut
@@ -47,6 +52,20 @@ call plug#end()
 
 " Copy paste vim to macOS clipboard
 set clipboard=unnamed
+
+" Ripgrep
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
+nnoremap \ :Rg<space>
+nnoremap <C-T> :Files
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>s :BLines
+
+" Hack because Ctrl-i = tab = completion
+nnoremap <C-l> <C-i>
 
 " -- Coc settings --
 
@@ -115,14 +134,18 @@ nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
+
 " -- Other settings --
+
+" Navigation with vim sneak
+let g:sneak#label = 1
 
 " Watch file changes on filesystem
 set autoread
 
 " Coc global extensions
 let g:coc_global_extensions = ["coc-json", "coc-prettier", "coc-tsserver", "coc-yaml",
-                             \ "coc-tslint", "coc-go"]
+                             \ "coc-tslint"]
 
 " Colors
 colorscheme gruvbox
@@ -143,6 +166,12 @@ let g:airline#extensions#tabline#enabled = 1
 let NERDTreeShowHidden=1
 :nnoremap <F2> :NERDTree<CR>
 :nnoremap <F3> :NERDTreeClose<CR>
+:nnoremap <leader>r :NERDTreeFind<cr>
+
+" Explorer
+:nnoremap <F2> <CR>
+:nnoremap <F3> <CR>
+:nnoremap <leader>r :NERDTreeFind<cr>
 
 " Files
 nnoremap <C-p> :Files<CR>
@@ -151,9 +180,6 @@ nnoremap <Leader>o :ccl<CR>
 " Remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Remove command for rebase
-autocmd BufRead */git-rebase-todo execute ":%s/pick/squash/gc"
-
 " Set filetypes as typescript.tsx
 " autocmd BufNewFile,BufRead *.ts,*js,*.tsx,*.jsx set filetype=typescript
 " autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript
@@ -161,6 +187,8 @@ let g:jsx_ext_required = 0
 
 " Disable vim polyglot for some languages, current problems between TS and JSX
 let g:polyglot_disabled = ['css', 'tsx', 'jsx']
+
+let g:coc_disable_startup_warning = 1
 
 " Setup
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -179,3 +207,14 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " Live replace
 :set inccommand=split
 
+" Go params
+let g:go_highlight_structs = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
