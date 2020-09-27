@@ -1,10 +1,12 @@
 # Path to your oh-my-zsh installation.
-export ZSH="~/.oh-my-zsh"
+export ZSH="/Users/dylandjian/.oh-my-zsh"
 
-## ZSH config
 ZSH_THEME="spaceship"
-plugins=(git zsh-z zsh-autosuggestions fzf-zsh)
+plugins=(git zsh-z zsh-autosuggestions fzf-zsh fzf-tab)
+
 source $ZSH/oh-my-zsh.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
 
 ## Kubernetes stuff
 kwatch () {
@@ -30,6 +32,9 @@ source <(kubectl completion zsh)
 
 ## Random
 export LC_ALL=en_US.UTF-8
+export PATH=$PATH:$HOME/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
+export PATH=$PATH:$HOME/.bin
+
 
 ## NVM
 export NVM_DIR="$HOME/.nvm"
@@ -40,11 +45,22 @@ export NVM_DIR="$HOME/.nvm"
 alias v="nvim"
 alias vim="nvim"
 
+## Bat
+alias cat="bat"
+
 # To apply the command to CTRL-T as well
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -E ~/.fdignore'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-## Use Vim for command line prompt
+## Default prompt
+export EDTOR="/usr/local/bin/nvim"
+export VISUAL="/usr/local/bin/nvim"
+
+## Open command line in vim
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey '^x^x' edit-command-line
+bindkey '^xx' edit-command-line
+
+## Go
+export GOPATH=/Users/$USER/go
+export PATH=$GOPATH/bin:$PATH

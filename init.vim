@@ -1,3 +1,6 @@
+" Disable vim polyglot for some languages, current problems between TS and JSX
+let g:polyglot_disabled = ['css', 'tsx', 'jsx']
+
 " Plugin
 call plug#begin()
 "
@@ -162,16 +165,9 @@ let g:airline#extensions#tabline#enabled = 1
 :nnoremap <C-c> :bd<CR>
 :nnoremap <Leader><space> :noh<CR>
 
-" NerdTree
-let NERDTreeShowHidden=1
-:nnoremap <F2> :NERDTree<CR>
-:nnoremap <F3> :NERDTreeClose<CR>
-:nnoremap <leader>r :NERDTreeFind<cr>
-
 " Explorer
-:nnoremap <F2> <CR>
-:nnoremap <F3> <CR>
-:nnoremap <leader>r :NERDTreeFind<cr>
+:nnoremap <Leader>r :CocCommand explorer <CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " Files
 nnoremap <C-p> :Files<CR>
@@ -184,9 +180,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 " autocmd BufNewFile,BufRead *.ts,*js,*.tsx,*.jsx set filetype=typescript
 " autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript
 let g:jsx_ext_required = 0
-
-" Disable vim polyglot for some languages, current problems between TS and JSX
-let g:polyglot_disabled = ['css', 'tsx', 'jsx']
 
 let g:coc_disable_startup_warning = 1
 
@@ -218,3 +211,4 @@ let g:go_highlight_fields = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
