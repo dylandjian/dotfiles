@@ -17,19 +17,34 @@
   "codeLens.enable": false,
   "diagnostic.virtualText": true,
   "tsserver.enableJavascript": true,
-  "coc.preferences.hoverTarget": "float",
   "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
+    },
     "terraform": {
       "command": "terraform-lsp",
       "filetypes": ["terraform"],
       "initializationOptions": {}
     }
   },
-  "python.jediEnabled": false,
   "explorer.width": 30,
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
-  "explorer.keyMappings": {
+  "explorer.file.showHiddenFiles": true,
+  "explorer.keyMappings.global": {
     "<cr>": ["expandable?", "expand", "open"],
     "v": "open:vsplit"
   }

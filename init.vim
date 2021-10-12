@@ -21,6 +21,9 @@ Plug 'roxma/vim-tmux-clipboard'
 " Git
 Plug 'tpope/vim-fugitive'
 
+" Session snapshot
+Plug 'tpope/vim-obsession'
+
 " Files
 " Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
@@ -70,6 +73,9 @@ nnoremap <Leader>s :BLines
 " Hack because Ctrl-i = tab = completion
 nnoremap <C-l> <C-i>
 
+" Disable fzf floating
+let g:fzf_layout = { 'down': '40%' }
+
 " -- Coc settings --
 
 " if hidden is not set, TextEdit might fail.
@@ -114,6 +120,7 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> <Leader>gd :vsp<CR>zz<Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -140,6 +147,10 @@ xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
 " -- Other settings --
 
+" Full screen pane
+nnoremap <Leader>z :tabnew %<CR>
+nnoremap <Leader><Leader>z :wq<CR>
+
 " Navigation with vim sneak
 let g:sneak#label = 1
 
@@ -148,7 +159,7 @@ set autoread
 
 " Coc global extensions
 let g:coc_global_extensions = ["coc-json", "coc-prettier", "coc-tsserver", "coc-yaml",
-                             \ "coc-tslint"]
+                             \ "coc-tslint", "coc-explorer"]
 
 " Colors
 colorscheme gruvbox
@@ -160,14 +171,15 @@ let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 " -- Keybinds --
-:nnoremap <C-z> :bp<CR>
-:nnoremap <C-x> :bn<CR>
-:nnoremap <C-c> :bd<CR>
-:nnoremap <Leader><space> :noh<CR>
+nnoremap <C-z> :bp<CR>
+nnoremap <C-x> :bn<CR>
+nnoremap <C-c> :bd<CR>
+nnoremap <Leader><space> :noh<CR>
 
 " Explorer
-:nnoremap <Leader>r :CocCommand explorer <CR>
+nnoremap <Leader>r :CocCommand explorer <CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+nnoremap <Leader>er :call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal:0'], [['relative', 0, 'file']])<CR>
 
 " Files
 nnoremap <C-p> :Files<CR>
@@ -212,3 +224,5 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
+" Text width for markdown
+au BufRead,BufNewFile *.md setlocal textwidth=80
