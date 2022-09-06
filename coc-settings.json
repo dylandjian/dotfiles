@@ -7,12 +7,9 @@
     "typescriptreact",
     "jsonc",
     "json",
-    "go",
-    "yaml"
+    "yaml",
+    "go"
   ],
-  "go.goplsOptions": {
-    "completeUnimported": true
-  },
   "diagnostic.virtualTextCurrentLineOnly": false,
   "codeLens.enable": false,
   "diagnostic.virtualText": true,
@@ -35,14 +32,16 @@
       }
     },
     "terraform": {
-      "command": "terraform-lsp",
-      "filetypes": ["terraform"],
-      "initializationOptions": {}
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["terraform", "tf"],
+      "initializationOptions": {},
+      "settings": {}
     }
   },
   "explorer.width": 30,
+  "explorer.file.reveal.auto": true,
   "explorer.icon.enableNerdfont": true,
-  "explorer.previewAction.onHover": false,
   "explorer.file.showHiddenFiles": true,
   "explorer.keyMappings.global": {
     "<cr>": ["expandable?", "expand", "open"],

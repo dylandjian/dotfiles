@@ -2,11 +2,9 @@
 export ZSH="/Users/dylandjian/.oh-my-zsh"
 
 ZSH_THEME="spaceship"
-plugins=(git zsh-z zsh-autosuggestions fzf-zsh fzf-tab)
+plugins=(git zsh-z fzf-tab zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
 
 ## Kubernetes stuff
 kwatch () {
@@ -38,8 +36,8 @@ export PATH=$PATH:$HOME/.bin
 
 ## NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 ## Vim
 alias v="nvim"
@@ -53,14 +51,41 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -E ~/.fdignore'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ## Default prompt
-export EDTOR="/usr/local/bin/nvim"
-export VISUAL="/usr/local/bin/nvim"
+export EDTOR="/opt/homebrew/bin/nvim"
+export VISUAL="/opt/homebrew/bin/nvim"
 
 ## Open command line in vim
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^xx' edit-command-line
+export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 
 ## Go
 export GOPATH=/Users/$USER/go
 export PATH=$GOPATH/bin:$PATH
+
+## Tmuxp
+export DISABLE_AUTO_TITLE='true'
+export HISTORY_IGNORE="(fg)"
+
+## Use same keybind to suspend and open vim
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER=" fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+
+zle -N fancy-ctrl-z
+bindkey '^H' fancy-ctrl-z
+
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit prompt spaceship
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export SPACESHIP_KUBECTL_SHOW=true
+source ~/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh

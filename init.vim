@@ -25,8 +25,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 
 " Files
-" Plug 'scrooloose/nerdtree'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Colors
@@ -70,6 +69,8 @@ nnoremap <C-T> :Files
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>s :BLines
 
+nnoremap <C-H> :suspend<CR>
+
 " Hack because Ctrl-i = tab = completion
 nnoremap <C-l> <C-i>
 
@@ -96,13 +97,14 @@ set shortmess+=c
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+"
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -112,7 +114,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -196,7 +199,7 @@ let g:jsx_ext_required = 0
 let g:coc_disable_startup_warning = 1
 
 " Setup
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 " Spaces and tabs
 :set tabstop=2
@@ -222,7 +225,6 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Text width for markdown
 au BufRead,BufNewFile *.md setlocal textwidth=80
