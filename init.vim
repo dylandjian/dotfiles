@@ -165,6 +165,7 @@ let g:coc_global_extensions = ["coc-json", "coc-prettier", "coc-tsserver", "coc-
                              \ "coc-tslint", "coc-explorer"]
 
 " Colors
+let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 " Fix SignColumn grey color
 hi clear SignColumn
@@ -192,8 +193,6 @@ nnoremap <Leader>o :ccl<CR>
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Set filetypes as typescript.tsx
-" autocmd BufNewFile,BufRead *.ts,*js,*.tsx,*.jsx set filetype=typescript
-" autocmd BufNewFile,BufRead *.ts,*.js set filetype=typescript
 let g:jsx_ext_required = 0
 
 let g:coc_disable_startup_warning = 1
@@ -211,20 +210,11 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 :set relativenumber
 :set mouse=a
 :set number
+:set laststatus=3
+:set cmdheight=0
 
 " Live replace
 :set inccommand=split
-
-" Go params
-let g:go_highlight_structs = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
 
 " Text width for markdown
 au BufRead,BufNewFile *.md setlocal textwidth=80
