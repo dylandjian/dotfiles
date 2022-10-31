@@ -8,8 +8,10 @@
     "jsonc",
     "json",
     "yaml",
-    "go"
+    "go",
+    "lua"
   ],
+  "stylua.styluaPath": "/Users/dylandjian/.cargo/bin/stylua",
   "diagnostic.virtualTextCurrentLineOnly": false,
   "codeLens.enable": false,
   "diagnostic.virtualText": true,

@@ -28,18 +28,17 @@ alias kctx="kubectx"
 alias kns="kubens"
 source <(kubectl completion zsh)
 
-## Random
+# Random
 export LC_ALL=en_US.UTF-8
-export PATH=$PATH:$HOME/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 export PATH=$PATH:$HOME/.bin
 
 
-## NVM
+# NVM
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-## Vim
+# Vim
 alias v="nvim"
 alias vim="nvim"
 
@@ -68,7 +67,6 @@ export PATH=$GOPATH/bin:$PATH
 export DISABLE_AUTO_TITLE='true'
 export HISTORY_IGNORE="(fg)"
 
-## Use same keybind to suspend and open vim
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER=" fg"
