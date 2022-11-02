@@ -10,7 +10,7 @@ local function init()
 
 	-- Packer
 	use("wbthomason/packer.nvim")
-	--
+
 	-- Improvement on loading time
 	use("lewis6991/impatient.nvim")
 
@@ -35,12 +35,6 @@ local function init()
 	})
 
 	use("rcarriga/nvim-notify")
-
-	-- Wrapping/delimiters
-	use({
-		{ "machakann/vim-sandwich", event = "User ActuallyEditing" },
-		{ "andymass/vim-matchup", setup = [[require('config.matchup')]], event = "User ActuallyEditing" },
-	})
 
 	-- Search
 	use("romainl/vim-cool")
@@ -74,11 +68,7 @@ local function init()
 	use("folke/tokyonight.nvim")
 
 	-- Bufferline
-	-- use({
-	-- 	"akinsho/bufferline.nvim",
-	-- 	tag = "v3.*",
-	-- 	requires = "kyazdani42/nvim-web-devicons",
-	-- })
+	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "kyazdani42/nvim-web-devicons" })
 
 	-- Highlights
 	use({

@@ -8,7 +8,7 @@ require("bufferline").setup({
 		end,
 		offsets = {
 			{
-				filetype = "neo-tree",
+				filetype = "coc-explorer",
 				text = "File Explorer",
 				highlight = "Directory",
 				separator = true,

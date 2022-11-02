@@ -1,7 +1,7 @@
 require("lualine").setup({
 	options = {
 		theme = "tokyonight",
-		disabled_filetypes = { "dashboard", "startify", "NvimTree", "packer" },
+		disabled_filetypes = { "dashboard", "startify", "coc-explorer", "packer" },
 	},
 	sections = {
 		lualine_a = { "mode" },

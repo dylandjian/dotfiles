@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/Users/dylandjian/.local/share/nvim/site/pack/packer/start/alpha-nvim",
     url = "https://github.com/goolord/alpha-nvim"
   },
+  ["bufferline.nvim"] = {
+    loaded = true,
+    path = "/Users/dylandjian/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
+    url = "https://github.com/akinsho/bufferline.nvim"
+  },
   ["coc-nvim-lua"] = {
     loaded = true,
     path = "/Users/dylandjian/.local/share/nvim/site/pack/packer/start/coc-nvim-lua",
@@ -179,25 +184,10 @@ _G.packer_plugins = {
     path = "/Users/dylandjian/.local/share/nvim/site/pack/packer/start/vim-cool",
     url = "https://github.com/romainl/vim-cool"
   },
-  ["vim-matchup"] = {
-    after_files = { "/Users/dylandjian/.local/share/nvim/site/pack/packer/opt/vim-matchup/after/plugin/matchit.vim" },
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/Users/dylandjian/.local/share/nvim/site/pack/packer/opt/vim-matchup",
-    url = "https://github.com/andymass/vim-matchup"
-  },
   ["vim-repeat"] = {
     loaded = true,
     path = "/Users/dylandjian/.local/share/nvim/site/pack/packer/start/vim-repeat",
     url = "https://github.com/tpope/vim-repeat"
-  },
-  ["vim-sandwich"] = {
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/Users/dylandjian/.local/share/nvim/site/pack/packer/opt/vim-sandwich",
-    url = "https://github.com/machakann/vim-sandwich"
   },
   ["vim-sayonara"] = {
     loaded = true,
@@ -217,17 +207,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Setup for: vim-matchup
-time([[Setup for vim-matchup]], true)
-require('config.matchup')
-time([[Setup for vim-matchup]], false)
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Event lazy-loads
-time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au User ActuallyEditing ++once lua require("packer.load")({'vim-sandwich', 'vim-matchup'}, { event = "User ActuallyEditing" }, _G.packer_plugins)]]
-time([[Defining lazy-load event autocommands]], false)
-vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

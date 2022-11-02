@@ -28,22 +28,79 @@ end
 
 -- Settings
 local opt = vim.opt
-opt.tabstop = 2
-opt.softtabstop = 2
+
+-- Indent
+opt.wrap = false
+opt.wrapmargin = 2
+opt.textwidth = 80
+opt.autoindent = true
+opt.shiftround = true
 opt.shiftwidth = 2
 opt.expandtab = true
-opt.relativenumber = true
-opt.mouse = "a"
-opt.number = true
-opt.laststatus = 3
-opt.cmdheight = 0
-opt.inccommand = "split"
 opt.smartindent = true
+
+-- Mouse
+opt.mousefocus = true
+opt.mousemoveevent = true
+opt.mousescroll = { "ver:1", "hor:6" }
+
+-- Random
+opt.clipboard = "unnamedplus"
 opt.autoread = true
 opt.hidden = true
-opt.shortmess = opt.shortmess + { c = true }
+
+-- Display
+opt.relativenumber = true
+opt.cmdheight = 0
+opt.number = true
+-- opt.linebreak = true -- lines wrap at words rather than random characters
+-- opt.synmaxcol = 1024 -- don't syntax highlight long lines
+opt.guifont = "FuraMono Nerd Font:h14,codicon"
+
+-- List chars
+opt.list = true -- invisible chars
+
+-- Window splitting and buffers
+-- do not use split or vsplit to ensure we don't open any new windows
+opt.switchbuf = "useopen,uselast"
+opt.inccommand = "split"
+opt.fillchars = {
+	fold = " ",
+	eob = " ", -- suppress ~ at EndOfBuffer
+	diff = "╱", -- alternatives = ⣿ ░ ─
+	msgsep = " ", -- alternatives: ‾ ─
+	foldopen = "▾",
+	foldsep = "│",
+	foldclose = "▸",
+}
+
+-- Message output on vim actions
+opt.shortmess = {
+	t = true, -- truncate file messages at start
+	A = true, -- ignore annoying swap file messages
+	o = true, -- file-read message overwrites previous
+	O = true, -- file-read message overwrites previous
+	T = true, -- truncate non-file messages in middle
+	f = true, -- (file x of x) instead of just (x of x
+	F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
+	s = true,
+	c = true,
+	W = true, -- Don't show [w] or written when writing
+}
+
+-- Timings
 opt.updatetime = 300
-opt.clipboard = "unnamed"
+opt.timeout = true
+opt.timeoutlen = 500
+opt.ttimeoutlen = 10
+
+-- Match and search
+opt.ignorecase = true
+opt.smartcase = true
+opt.wrapscan = true -- Searches wrap around the end of the file
+opt.scrolloff = 9
+opt.sidescrolloff = 10
+opt.sidescroll = 1
 
 -- Colorscheme
 opt.termguicolors = true
@@ -146,4 +203,4 @@ local ensure_packer = function()
 	return false
 end
 
-local packer_bootstrap = ensure_packer()
+ensure_packer()
