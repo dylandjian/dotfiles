@@ -29,15 +29,17 @@ end
 -- Settings
 local opt = vim.opt
 
+-- Folding
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldlevel = 9
+
 -- Indent
-opt.wrap = false
 opt.wrapmargin = 2
 opt.textwidth = 80
-opt.autoindent = true
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.expandtab = true
-opt.smartindent = true
 
 -- Mouse
 opt.mousefocus = true
@@ -50,6 +52,7 @@ opt.autoread = true
 opt.hidden = true
 
 -- Display
+opt.wrap = true
 opt.relativenumber = true
 opt.cmdheight = 0
 opt.number = true
@@ -154,11 +157,13 @@ map("n", "<Leader>o", ":ccl<CR>", silent)
 -- CoC stuff
 vim.api.nvim_create_user_command("Format", "call CocAction('format')", {})
 vim.g.coc_global_extensions = {
+	"coc-pyright",
+	"coc-stylua",
+	"coc-pairs",
 	"coc-json",
 	"coc-prettier",
 	"coc-tsserver",
 	"coc-yaml",
-	"coc-tslint",
 	"coc-explorer",
 }
 
@@ -177,9 +182,10 @@ function _G.show_docs()
 		vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
 	end
 end
-map("i", "<c-space>", "coc#refresh()", silent)
 
 -- Go to definition and other things
+map("i", "<c-space>", "coc#refresh()", { expr = true })
+map("n", "<Leader>qf", "<Plug>(coc-fix-current)", silent)
 map("n", "K", "<CMD>lua _G.show_docs()<CR>", silent)
 map("n", "<c-k>", "<Plug>(coc-rename)", silent)
 map("n", "[g", "<Plug>(coc-diagnostic-prev)", silent)

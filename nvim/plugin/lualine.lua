@@ -11,7 +11,6 @@ require("lualine").setup({
 			{ "diagnostics", sources = { "coc" } },
 		},
 		lualine_x = {
-			-- require("lsp-status").status,
 			"diff",
 			"encoding",
 			"fileformat",

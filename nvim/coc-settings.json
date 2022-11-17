@@ -9,8 +9,10 @@
     "json",
     "yaml",
     "go",
-    "lua"
+    "lua",
+    "python"
   ],
+  "python.pythonPath": "python3",
   "stylua.checkUpdate": false,
   "stylua.styluaPath": "/Users/dylandjian/.cargo/bin/stylua",
   "diagnostic.virtualTextCurrentLineOnly": false,

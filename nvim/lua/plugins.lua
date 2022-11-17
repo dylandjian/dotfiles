@@ -34,7 +34,13 @@ local function init()
 		"numToStr/Comment.nvim",
 	})
 
+	-- Notifications
 	use("rcarriga/nvim-notify")
+
+	-- Git signs on buffers
+	use({
+		"lewis6991/gitsigns.nvim",
+	})
 
 	-- Search
 	use("romainl/vim-cool")
@@ -78,16 +84,6 @@ local function init()
 			"RRethy/nvim-treesitter-textsubjects",
 		},
 		run = ":TSUpdate",
-	})
-
-	use({
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
-		requires = {
-			"nvim-lua/plenary.nvim",
-			"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
-		},
 	})
 
 	-- Completion
