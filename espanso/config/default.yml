@@ -1,0 +1,6 @@
+# You can also disable the toggle key completely with
+toggle_key: OFF
+
+# Enable/disable the config auto-reload after a file change is detected.
+auto_restart: false
+

@@ -1,0 +1,9 @@
+## Filter for obsidian
+filter_exec: Obsidian
+
+## Activate
+enable: true
+
+## Include match
+extra_includes:
+  - "../match/_obsidian.yml"

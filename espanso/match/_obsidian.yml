@@ -1,0 +1,60 @@
+matches:
+  # book
+  - trigger: ":ifb"
+    replace: "🔮/📚"
+
+  # podcast
+  - trigger: ":ifp"
+    replace: "🔮/🎙"
+
+  # youtube
+  - trigger: ":ify"
+    replace: "🔮/📹"
+
+  # article
+  - trigger: ":ifa"
+    replace: "🔮/📰"
+
+  # log
+  - trigger: ":lgg"
+    replace: "📅"
+
+  # seed
+  - trigger: ":nis"
+    replace: "📝/🌱"
+
+  # fern
+  - trigger: ":nif"
+    replace: "📝/🌿"
+
+  # incubator
+  - trigger: ":nii"
+    replace: "📝/🌞"
+
+  # evergreen
+  - trigger: ":nie"
+    replace: "📝/🌲"
+
+  # not processed
+  - trigger: ":sqr"
+    replace: "🟥"
+
+  # processing
+  - trigger: ":sqo"
+    replace: "🟧"
+
+  # refactoring
+  - trigger: ":sqy"
+    replace: "🟨"
+
+  # completed
+  - trigger: ":sqg"
+    replace: "🟩"
+
+  # map
+  - trigger: ":map"
+    replace: "🗺"
+
+  # people
+  - trigger: ":ppl"
+    replace: "👨"
