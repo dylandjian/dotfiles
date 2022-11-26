@@ -61,4 +61,4 @@ matches:
 
   # on me
   - trigger: ":onm"
-    replace: "🙎"
+    replace: "🙎 "
