@@ -58,3 +58,7 @@ matches:
   # people
   - trigger: ":ppl"
     replace: "👨"
+
+  # on me
+  - trigger: ":onm"
+    replace: "🙎"
