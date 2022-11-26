@@ -34,6 +34,12 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 9
 
+-- Temporary fold fix
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*" },
+	command = "normal zx",
+})
+
 -- Indent
 opt.wrapmargin = 2
 opt.textwidth = 80
@@ -188,8 +194,8 @@ map("i", "<c-space>", "coc#refresh()", { expr = true })
 map("n", "<Leader>qf", "<Plug>(coc-fix-current)", silent)
 map("n", "K", "<CMD>lua _G.show_docs()<CR>", silent)
 map("n", "<c-k>", "<Plug>(coc-rename)", silent)
-map("n", "[g", "<Plug>(coc-diagnostic-prev)", silent)
-map("n", "]g", "<Plug>(coc-diagnostic-next)", silent)
+map("n", "[c", "<Plug>(coc-diagnostic-prev)", silent)
+map("n", "]c", "<Plug>(coc-diagnostic-next)", silent)
 map("n", "gd", "<Plug>(coc-definition)", silent)
 map("n", "gy", "<Plug>(coc-type-definition)", silent)
 map("n", "gi", "<Plug>(coc-implementation)", silent)
