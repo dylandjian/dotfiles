@@ -1,5 +1,17 @@
-require("impatient")
-vim.notify = require("notify")
+-- Setup of lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+
+vim.opt.rtp:prepend(lazypath)
 
 local g = vim.g
 local cmd = vim.cmd
@@ -7,6 +19,9 @@ local cmd = vim.cmd
 -- Leader/local leader
 g.mapleader = [[,]]
 g.maplocalleader = [[,]]
+
+-- Initializing plugins
+require("lazy").setup("plugins")
 
 -- Disable some built-in plugins we don't want
 local disabled_built_ins = {
@@ -32,13 +47,6 @@ local opt = vim.opt
 -- Folding
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
-opt.foldlevel = 9
-
--- Temporary fold fix
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*" },
-	command = "normal zx",
-})
 
 -- Indent
 opt.wrapmargin = 2
@@ -62,9 +70,8 @@ opt.wrap = true
 opt.relativenumber = true
 opt.cmdheight = 0
 opt.number = true
--- opt.linebreak = true -- lines wrap at words rather than random characters
--- opt.synmaxcol = 1024 -- don't syntax highlight long lines
-opt.guifont = "FuraMono Nerd Font:h14,codicon"
+opt.linebreak = true -- lines wrap at words rather than random characters
+opt.synmaxcol = 1024 -- don't syntax highlight long lines
 
 -- List chars
 opt.list = true -- invisible chars
@@ -101,7 +108,6 @@ opt.shortmess = {
 opt.updatetime = 300
 opt.timeout = true
 opt.timeoutlen = 500
-opt.ttimeoutlen = 10
 
 -- Match and search
 opt.ignorecase = true
@@ -114,30 +120,6 @@ opt.sidescroll = 1
 -- Colorscheme
 opt.termguicolors = true
 opt.background = "dark"
-cmd([[colorscheme tokyonight-storm]])
-
--- Commands
-local create_cmd = vim.api.nvim_create_user_command
-create_cmd("PackerInstall", function()
-	cmd([[packadd packer.nvim]])
-	require("plugins").install()
-end, {})
-create_cmd("PackerUpdate", function()
-	cmd([[packadd packer.nvim]])
-	require("plugins").update()
-end, {})
-create_cmd("PackerSync", function()
-	cmd([[packadd packer.nvim]])
-	require("plugins").sync()
-end, {})
-create_cmd("PackerClean", function()
-	cmd([[packadd packer.nvim]])
-	require("plugins").clean()
-end, {})
-create_cmd("PackerCompile", function()
-	cmd([[packadd packer.nvim]])
-	require("plugins").compile()
-end, {})
 
 -- Keybindings
 local silent = { silent = true, noremap = true }
@@ -197,6 +179,7 @@ map("n", "<c-k>", "<Plug>(coc-rename)", silent)
 map("n", "[c", "<Plug>(coc-diagnostic-prev)", silent)
 map("n", "]c", "<Plug>(coc-diagnostic-next)", silent)
 map("n", "gd", "<Plug>(coc-definition)", silent)
+map("n", "<RightMouse>", "<Plug>(coc-definition)", silent)
 map("n", "gy", "<Plug>(coc-type-definition)", silent)
 map("n", "gi", "<Plug>(coc-implementation)", silent)
 map("n", "gr", "<Plug>(coc-references)", silent)
@@ -204,15 +187,17 @@ map("n", "gr", "<Plug>(coc-references)", silent)
 local opts = { silent = true, noremap = true, expr = true }
 map("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+local function t(str)
+	return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-ensure_packer()
+function _G.toggle_term()
+	local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+	if filetype == "fzf" then
+		return t("<Esc>")
+	else
+		return t("<C-\\><C-n>")
+	end
+end
+
+vim.api.nvim_set_keymap("t", "<Esc>", "v:lua.toggle_term()", { expr = true, silent = true })

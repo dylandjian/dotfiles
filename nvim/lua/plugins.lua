@@ -1,101 +1,148 @@
-local packer = nil
-local function init()
-	if packer == nil then
-		packer = require("packer")
-		packer.init({})
-	end
+return {
+	-- Theme
+	{ "folke/tokyonight.nvim" },
 
-	local use = packer.use
-	packer.reset()
+	{
+		"folke/tokyonight.nvim",
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
+		config = function()
+			-- load the colorscheme here
+			vim.cmd([[colorscheme tokyonight]])
+		end,
+	},
 
-	-- Packer
-	use("wbthomason/packer.nvim")
-
-	-- Improvement on loading time
-	use("lewis6991/impatient.nvim")
+	-- Start-up screen
+	{ "goolord/alpha-nvim" },
 
 	-- Improvement on exiting buffers ect
-	use("mhinz/vim-sayonara")
+	{ "mhinz/vim-sayonara" },
 
 	-- Better word motion
-	use("chaoren/vim-wordmotion")
+	{ "chaoren/vim-wordmotion" },
 
 	-- Navigation
-	use({
+	{
 		"ggandor/leap.nvim",
-		requires = "tpope/vim-repeat",
-	})
+		enabled = true,
+		keys = {
+			{ "s", mode = { "n", "x", "o" }, desc = "Leap forward to" },
+			{ "S", mode = { "n", "x", "o" }, desc = "Leap backward to" },
+			{ "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
+		},
+		config = function(_, opts)
+			local leap = require("leap")
+			for k, v in pairs(opts) do
+				leap.opts[k] = v
+			end
+			leap.add_default_mappings(true)
+			vim.keymap.del({ "x", "o" }, "x")
+			vim.keymap.del({ "x", "o" }, "X")
+		end,
+	},
 
 	-- Indentation tracking
-	use("lukas-reineke/indent-blankline.nvim")
+	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
 	-- Commenting
-	use({
+	{
 		"numToStr/Comment.nvim",
-	})
+		config = true,
+		keys = {
+			{ "gc", mode = { "n", "v" }, desc = "Toggle comments" },
+			{ "gb", mode = { "n", "v" }, desc = "Toggle block comments" },
+		},
+	},
 
 	-- Notifications
-	use("rcarriga/nvim-notify")
+	{ "rcarriga/nvim-notify", enabled = true },
 
 	-- Git signs on buffers
-	use({
+	{
 		"lewis6991/gitsigns.nvim",
-	})
+		opts = {
+			signs = {
+				add = {
+					text = "+",
+				},
+				change = {
+					text = "~",
+				},
+				delete = {
+					text = "-",
+				},
+				topdelete = {
+					text = "-",
+				},
+				changedelete = {
+					text = "~",
+				},
+			},
+			signcolumn = true, -- Toggle with `:GitSigns toggle_signs`
+			watch_gitdir = { interval = 1000, follow_files = true },
+			attach_to_untracked = true,
+		},
+	},
+
+	{
+		"romgrk/barbar.nvim",
+		dependencies = {
+			"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+			"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+		end,
+		opts = {
+			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+			-- animation = true,
+			-- insert_at_start = true,
+			-- …etc.
+		},
+		version = "^1.0.0", -- optional: only update when a new 1.x version is released
+	},
 
 	-- Search
-	use("romainl/vim-cool")
+	{ "romainl/vim-cool", lazy = true, enable = false },
 
 	-- Add text objects
-	use("wellle/targets.vim")
+	{ "wellle/targets.vim", lazy = true, enable = false },
 
 	-- Pretty symbols
-	use("kyazdani42/nvim-web-devicons")
+	{ "kyazdani42/nvim-web-devicons", lazy = true },
 
 	-- Copy paste
-	use("roxma/vim-tmux-clipboard")
+	{ "roxma/vim-tmux-clipboard", lazy = true, enable = false },
 
 	-- Files
-	use({
+	{
 		"ibhagwan/fzf-lua",
 		-- optional for icon support
-		requires = { "kyazdani42/nvim-web-devicons" },
-		-- run = './install --bin',
-	})
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+	},
 
-	use({
+	{
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
-	})
-
-	use({
-		"goolord/alpha-nvim",
-	})
-
-	use("folke/tokyonight.nvim")
+		dependencies = { "kyazdani42/nvim-web-devicons", opt = true },
+	},
 
 	-- Bufferline
-	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "kyazdani42/nvim-web-devicons" })
+	{
+		"akinsho/bufferline.nvim",
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		enable = false,
+	},
 
 	-- Highlights
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		requires = {
+		dependencies = {
 			"nvim-treesitter/nvim-treesitter-refactor",
 			"RRethy/nvim-treesitter-textsubjects",
 		},
-		run = ":TSUpdate",
-	})
+		build = ":TSUpdate",
+	},
 
 	-- Completion
-	use({ "neoclide/coc.nvim", branch = "release", run = ":CocUpdate" })
-	use("rafcamlet/coc-nvim-lua")
-end
-
-local plugins = setmetatable({}, {
-	__index = function(_, key)
-		init()
-		return packer[key]
-	end,
-})
-
-return plugins
+	{ "neoclide/coc.nvim", branch = "release", build = ":CocUpdate" },
+}

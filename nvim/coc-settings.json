@@ -1,9 +1,9 @@
 {
   "coc.preferences.formatOnSave": true,
   "python.pythonPath": "python3",
-  "stylua.checkUpdate": false,
-  "stylua.styluaPath": "/Users/dylandjian/.cargo/bin/stylua",
   "diagnostic.virtualTextCurrentLineOnly": false,
+  "stylua.checkUpdate": false,
+  "stylua.styluaPath": "/home/dylan/.cargo/bin/stylua",
   "codeLens.enable": false,
   "diagnostic.virtualText": true,
   "languageserver": {
@@ -30,9 +30,6 @@
       "initializationOptions": {},
       "settings": {}
     }
-  },
-  "markdownlint.config": {
-    "line_length": true
   },
   "explorer.width": 45,
   "explorer.file.reveal.auto": true,
