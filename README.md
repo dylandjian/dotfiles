@@ -41,3 +41,10 @@ This repository contains configuration files for:
 
 - A Nerd Font (recommended: Liga SFMono Nerd Font)
 - Powerline-compatible font
+
+## Credits
+
+- https://github.com/nikolovlazar/dotfiles
+- https://github.com/craftzdog/dotfiles-public
+- https://github.com/sachinsenal0x64/dotfiles
+- https://github.com/typecraft-dev/dotfiles
