@@ -1,6 +1,6 @@
 # Dotfiles
 
-My personal dotfiles for development environment setup.
+My personal dotfiles for my development environment setup.
 
 ## Screenshots
 
