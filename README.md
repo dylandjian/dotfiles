@@ -2,6 +2,11 @@
 
 My personal dotfiles for development environment setup.
 
+## Screenshots
+
+![Neovim default](./ss.png)
+![Full workflow](./workflow.png)
+
 ## Overview
 
 This repository contains configuration files for:
