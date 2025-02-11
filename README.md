@@ -42,6 +42,15 @@ This repository contains configuration files for:
 - A Nerd Font (recommended: Liga SFMono Nerd Font)
 - Powerline-compatible font
 
+### TODO
+
+- [ ] Make better crossplatform (MacOS / Linux compatibility)
+- [ ] Script to remove custom tokens
+- [ ] Add .gitconfig with delta config and theme
+- [ ] Make the README clearer on the list of tools you need to install
+- [ ] Fix bat theme for tokyonight, check https://github.com/folke/tokyonight.nvim/issues/23
+- [ ] Fix tmux theme
+
 ## Credits
 
 - https://github.com/nikolovlazar/dotfiles
