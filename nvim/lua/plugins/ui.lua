@@ -1,91 +1,34 @@
-return {
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {},
-    config = function()
-      require("ibl").setup()
-    end,
-  },
+require("snacks").setup({
+  notifier = { enabled = true, style = "compact" },
+  indent = { enabled = true },
+})
 
-  {
-    "rcarriga/nvim-notify",
-    lazy = false,
-    opts = { render = "compact" },
-    config = function()
-      local notify = require("notify")
-
-      vim.notify = notify
-    end,
+require("gitsigns").setup({
+  signs = {
+    add = { text = "+" },
+    change = { text = "~" },
+    delete = { text = "-" },
+    topdelete = { text = "-" },
+    changedelete = { text = "~" },
   },
+  signcolumn = true,
+  watch_gitdir = { interval = 1000, follow_files = true },
+  attach_to_untracked = true,
+})
 
-  -- Git Integration
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {
-      signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "-" },
-        topdelete = { text = "-" },
-        changedelete = { text = "~" },
-      },
-      signcolumn = true,
-      watch_gitdir = { interval = 1000, follow_files = true },
-      attach_to_untracked = true,
-    },
-    config = function()
-      require("gitsigns").setup()
-    end,
-  },
+vim.g.barbar_auto_setup = false
+require("barbar").setup({})
 
-  -- Buffer Management
-  {
-    "romgrk/barbar.nvim",
-    dependencies = {
-      "lewis6991/gitsigns.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
-    init = function()
-      vim.g.barbar_auto_setup = false
-    end,
-    opts = {},
-    version = "^1.0.0",
-  },
+require("which-key").setup({
+  delay = 800,
+  preset = "helix",
+})
 
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {
-      delay = 800,
-      preset = "helix",
-    },
-    keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
-        desc = "Buffer Local Keymaps (which-key)",
-      },
-    },
-  },
+vim.keymap.set("n", "<leader>?", function()
+  require("which-key").show({ global = false })
+end, { desc = "Buffer Local Keymaps (which-key)" })
 
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
+require("tokyonight").setup({})
+vim.cmd([[colorscheme tokyonight]])
 
-  -- Status Line
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup()
-    end,
-  },
-}
+require("lualine").setup()

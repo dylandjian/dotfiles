@@ -42,14 +42,37 @@ This repository contains configuration files for:
 - A Nerd Font (recommended: Liga SFMono Nerd Font)
 - Powerline-compatible font
 
+## Installation
+
+1. Clone into your preferred location:
+   ```bash
+   git clone https://github.com/dylandjian/dotfiles.git ~/Work/dotfiles
+   cd ~/Work/dotfiles
+   ```
+2. Run the installer — it symlinks configs into place and backs up
+   anything it would overwrite to `~/.dotfiles-backup-<timestamp>/`:
+   ```bash
+   ./install.sh
+   ```
+3. Private overrides (API keys, work-specific env) go in
+   `~/.zshrc.local` — it's sourced at the end of `.zshrc` and gitignored.
+
+### Syncing changes back
+
+If you tweak a config in place (e.g., `~/.config/nvim`) and want to
+pull it into the repo, run:
+
+```bash
+./sync.sh
+```
+
+It replaces the live file with a symlink to the repo copy and
+auto-commits the change.
+
 ### TODO
 
 - [ ] Make better crossplatform (MacOS / Linux compatibility)
-- [ ] Script to remove custom tokens
 - [ ] Add .gitconfig with delta config and theme
-- [ ] Make the README clearer on the list of tools you need to install
-- [ ] Fix bat theme for tokyonight, check https://github.com/folke/tokyonight.nvim/issues/23
-- [ ] Fix tmux theme
 
 ## Credits
 

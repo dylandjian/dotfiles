@@ -1,1 +1,5 @@
 make.sh
+
+# Private — never commit
+zsh/.zshrc.local
+claude/

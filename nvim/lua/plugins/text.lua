@@ -1,50 +1,16 @@
-return {
-  -- Navigation
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.Config
-    opts = { highlight = { matches = false }, modes = { char = { enabled = false } } },
-    -- stylua: ignore
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
-  },
+require("flash").setup({
+  highlight = { matches = false },
+  modes = { char = { enabled = false } },
+})
 
-  { "chaoren/vim-wordmotion" },
+vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Flash" })
+vim.keymap.set({ "n", "x", "o" }, "S", function() require("flash").treesitter() end, { desc = "Flash Treesitter" })
+vim.keymap.set("o", "r", function() require("flash").remote() end, { desc = "Remote Flash" })
+vim.keymap.set({ "o", "x" }, "R", function() require("flash").treesitter_search() end, { desc = "Treesitter Search" })
+vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end, { desc = "Toggle Flash Search" })
 
-  -- Text Editing
-  {
-    "numToStr/Comment.nvim",
-    config = true,
-    keys = {
-      { "gc", mode = { "n", "v" }, desc = "Toggle comments" },
-      { "gb", mode = { "n", "v" }, desc = "Toggle block comments" },
-    },
-  },
+require("Comment").setup()
 
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end,
-  },
+require("nvim-surround").setup({})
 
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-      local npairs = require("nvim-autopairs")
-      npairs.setup({})
-    end,
-    opts = {},
-  },
-}
+require("nvim-autopairs").setup({})
