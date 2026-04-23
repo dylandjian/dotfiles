@@ -18,6 +18,11 @@ This repository contains configuration files for:
 
 ## Requirements
 
+All of the below are installed automatically by `./deps.sh` on macOS,
+and mostly automatically on Debian-based Linux (Raspberry Pi OS /
+Ubuntu / Debian) — GUI apps and the Nerd Font need a manual install
+on Linux for now.
+
 ### Core Dependencies
 
 - Git
@@ -49,12 +54,17 @@ This repository contains configuration files for:
    git clone https://github.com/dylandjian/dotfiles.git ~/Work/dotfiles
    cd ~/Work/dotfiles
    ```
-2. Run the installer — it symlinks configs into place and backs up
+2. Install dependencies (Homebrew/apt packages, Oh My Zsh + plugins,
+   nvm, Rust, uv, nvim tooling). Idempotent — safe to re-run:
+   ```bash
+   ./deps.sh
+   ```
+3. Run the installer — it symlinks configs into place and backs up
    anything it would overwrite to `~/.dotfiles-backup-<timestamp>/`:
    ```bash
    ./install.sh
    ```
-3. Private overrides (API keys, work-specific env) go in
+4. Private overrides (API keys, work-specific env) go in
    `~/.zshrc.local` — it's sourced at the end of `.zshrc` and gitignored.
 
 ### Syncing changes back
@@ -71,7 +81,8 @@ auto-commits the change.
 
 ### TODO
 
-- [ ] Make better crossplatform (MacOS / Linux compatibility)
+- [ ] Full Linux parity (GUI apps + Nerd Font auto-install)
+- [ ] Support non-apt Linux distros in `deps.sh` (dnf, pacman)
 - [ ] Add .gitconfig with delta config and theme
 
 ## Credits

@@ -50,6 +50,5 @@ symlink "$DOTFILES_DIR/tmux/tmux.conf"   "$HOME/.config/tmux/tmux.conf"
 symlink "$DOTFILES_DIR/espanso"          "$HOME/.config/espanso"
 symlink "$DOTFILES_DIR/zsh/.zshrc"       "$HOME/.zshrc"
 symlink "$DOTFILES_DIR/claude/scripts/hourly-worklog.py"                     "$HOME/.claude/scripts/hourly-worklog.py"
-symlink "$DOTFILES_DIR/claude/launchagents/com.claude.hourly-worklog.plist"  "$HOME/Library/LaunchAgents/com.claude.hourly-worklog.plist"
 
 log "Done! Reload your shell: source ~/.zshrc"

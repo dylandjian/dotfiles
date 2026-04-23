@@ -20,7 +20,6 @@ declare -A LINKS=(
   ["espanso"]="$HOME/.config/espanso"
   ["zsh/.zshrc"]="$HOME/.zshrc"
   ["claude/scripts/hourly-worklog.py"]="$HOME/.claude/scripts/hourly-worklog.py"
-  ["claude/launchagents/com.claude.hourly-worklog.plist"]="$HOME/Library/LaunchAgents/com.claude.hourly-worklog.plist"
 )
 
 synced=0
