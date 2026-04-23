@@ -168,16 +168,22 @@ clone_plugin https://github.com/agkozak/zsh-z \
   "$ZSH_CUSTOM/plugins/zsh-z"
 
 # ── nvm + Node LTS (node is nvm-managed, not system-managed) ─────────────────
-# NB: the nvm installer refuses to run if $NVM_DIR is set to a non-existent
-# path, so don't export it until *after* install.
-if [[ ! -s "$HOME/.nvm/nvm.sh" ]]; then
-  log "Installing nvm…"
-  PROFILE=/dev/null bash -c \
+# The .zshrc sets NVM_DIR to $XDG_CONFIG_HOME/nvm when that's defined,
+# else $HOME/.nvm — honour the same logic so install path matches the
+# shell's expectations. mkdir -p the target first so the installer's
+# "NVM_DIR set but doesn't exist" bail-out doesn't trigger.
+NVM_TARGET="${NVM_DIR:-${XDG_CONFIG_HOME:+$XDG_CONFIG_HOME/nvm}}"
+NVM_TARGET="${NVM_TARGET:-$HOME/.nvm}"
+
+if [[ ! -s "$NVM_TARGET/nvm.sh" ]]; then
+  log "Installing nvm to $NVM_TARGET…"
+  mkdir -p "$NVM_TARGET"
+  NVM_DIR="$NVM_TARGET" PROFILE=/dev/null bash -c \
     "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh)"
 else
-  log "nvm already installed"
+  log "nvm already installed at $NVM_TARGET"
 fi
-export NVM_DIR="$HOME/.nvm"
+export NVM_DIR="$NVM_TARGET"
 # shellcheck disable=SC1091
 \. "$NVM_DIR/nvm.sh"
 
