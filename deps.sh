@@ -168,14 +168,16 @@ clone_plugin https://github.com/agkozak/zsh-z \
   "$ZSH_CUSTOM/plugins/zsh-z"
 
 # ── nvm + Node LTS (node is nvm-managed, not system-managed) ─────────────────
-export NVM_DIR="$HOME/.nvm"
-if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
+# NB: the nvm installer refuses to run if $NVM_DIR is set to a non-existent
+# path, so don't export it until *after* install.
+if [[ ! -s "$HOME/.nvm/nvm.sh" ]]; then
   log "Installing nvm…"
   PROFILE=/dev/null bash -c \
     "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh)"
 else
   log "nvm already installed"
 fi
+export NVM_DIR="$HOME/.nvm"
 # shellcheck disable=SC1091
 \. "$NVM_DIR/nvm.sh"
 
