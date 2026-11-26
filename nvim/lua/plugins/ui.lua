@@ -14,6 +14,9 @@ require("gitsigns").setup({
   signcolumn = true,
   watch_gitdir = { interval = 1000, follow_files = true },
   attach_to_untracked = true,
+  current_line_blame = true,
+  current_line_blame_opts = { virt_text_pos = "eol", delay = 300 },
+  current_line_blame_formatter = "  by <author>, <author_time:%R> • <summary>",
 })
 
 vim.g.barbar_auto_setup = false

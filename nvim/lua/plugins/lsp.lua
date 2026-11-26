@@ -34,28 +34,59 @@ require("mason-tool-installer").setup({
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
 
+-- Use vim.lsp.config (nvim 0.11+ native API) for servers that need custom settings.
+-- lspconfig.setup() only updates the legacy lspconfig state, not vim.lsp.config.
+
+-- terraform-ls uses init_options (not settings) — see:
+-- https://github.com/hashicorp/terraform-ls/blob/main/docs/SETTINGS.md
+-- indexing.ignorePaths prevents it from scanning the full git root on every file open,
+-- which was causing nvim to appear frozen for 10–30s without the terraform CLI.
+vim.lsp.config("terraformls", {
+  init_options = {
+    terraform = {
+      timeout = "10s",
+    },
+    indexing = {
+      ignorePaths = { ".git", ".terraform/providers" },
+    },
+  },
+})
+
+-- graphql: expand filetypes beyond the default
+vim.lsp.config("graphql", {
+  filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+})
+
+-- lua_ls: teach it about the vim global
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = { globals = { "vim" } },
+      completion = { callSnippet = "Replace" },
+    },
+  },
+})
+
+-- terraform-ls sends invalid semantic token values (4294967295 = uint32 max)
+-- which causes an infinite loop in Neovim's semantic_tokens.lua → 100% CPU freeze.
+-- Workaround: strip semanticTokensProvider from the client on attach.
+-- Bug: https://github.com/neovim/neovim/issues/36257
+--      https://github.com/hashicorp/terraform-ls/issues/2094
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.name == "terraformls" then
+      client.server_capabilities.semanticTokensProvider = nil
+    end
+  end,
+})
+
+-- Apply cmp capabilities to every server that mason-lspconfig manages.
 require("mason-lspconfig").setup({
   handlers = {
     function(server_name)
       lspconfig[server_name].setup({
         capabilities = capabilities,
-      })
-    end,
-    graphql = function()
-      lspconfig.graphql.setup({
-        capabilities = capabilities,
-        filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-      })
-    end,
-    lua_ls = function()
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            diagnostics = { globals = { "vim" } },
-            completion = { callSnippet = "Replace" },
-          },
-        },
       })
     end,
   },

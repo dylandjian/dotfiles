@@ -17,9 +17,11 @@ declare -A LINKS=(
   ["nvim"]="$HOME/.config/nvim"
   ["kitty"]="$HOME/.config/kitty"
   ["tmux/tmux.conf"]="$HOME/.config/tmux/tmux.conf"
+  ["tmux/resurrect-save-strategy-children.sh"]="$HOME/.config/tmux/plugins/tmux-resurrect/save_command_strategies/children.sh"
   ["espanso"]="$HOME/.config/espanso"
   ["zsh/.zshrc"]="$HOME/.zshrc"
-  ["claude/scripts/hourly-worklog.py"]="$HOME/.claude/scripts/hourly-worklog.py"
+  ["claude/scripts/worklog.py"]="$HOME/.claude/scripts/worklog.py"
+  ["claude/scripts/statusline.sh"]="$HOME/.claude/scripts/statusline.sh"
 )
 
 synced=0

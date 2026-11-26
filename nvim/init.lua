@@ -134,8 +134,7 @@ vim.g.loaded_netrwPlugin = 1
 -- ============================
 local opt = vim.opt
 
-opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- Folds are configured per-filetype in plugins/highlighting.lua
 opt.foldlevel = 20
 
 opt.wrapmargin = 2
@@ -233,3 +232,9 @@ map("t", "<C-w>h", [[<C-\><C-n><C-w>h]], silent)
 map("t", "<C-w>j", [[<C-\><C-n><C-w>j]], silent)
 map("t", "<C-w>k", [[<C-\><C-n><C-w>k]], silent)
 map("t", "<C-w>l", [[<C-\><C-n><C-w>l]], silent)
+
+vim.api.nvim_create_user_command("PackUpdate", function(opts)
+  vim.pack.update(#opts.fargs > 0 and opts.fargs or nil)
+end, { nargs = "*", desc = "Update vim.pack plugins" })
+
+map("n", "<leader>U", "<cmd>PackUpdate<cr>", { desc = "Update plugins" })

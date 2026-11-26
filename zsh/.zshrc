@@ -247,3 +247,8 @@ export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 
 
+
+alias gam="/Users/dylandjian/bin/gam7/gam"
+
+# MCP UI apps (e.g. Slack draft previews): never open a browser window
+export MCP_UI_VIEWER=none
